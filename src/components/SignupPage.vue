@@ -32,7 +32,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       formInline: {
         name: '',
@@ -79,7 +79,7 @@ export default {
     }
   },
   methods: {
-    handleSubmit(name) {
+    handleSubmit (name) {
       this.$refs[name].validate(valid => {
         if (valid) {
           this.$store

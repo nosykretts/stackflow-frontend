@@ -23,7 +23,7 @@ import editor from 'vue2-medium-editor'
 
 export default {
   props: ['id'],
-  mounted() {
+  mounted () {
     if (this.id) {
       this.getQuestion()
     } else {
@@ -31,7 +31,7 @@ export default {
     }
   },
   components: { editor },
-  data() {
+  data () {
     return {
       editLoaded: false,
       formQuestion: {
@@ -41,7 +41,7 @@ export default {
     }
   },
   methods: {
-    handleSubmit() {
+    handleSubmit () {
       let dispatch = this.id ? 'updateQuestion' : 'createQuestion'
       this.$store
         .dispatch(dispatch, {
@@ -58,10 +58,10 @@ export default {
           })
         })
     },
-    processEditOperation(operation) {
+    processEditOperation (operation) {
       this.formQuestion.description = operation.api.origElements.innerHTML
     },
-    getQuestion() {
+    getQuestion () {
       console.log('kesinis')
       this.$store.dispatch('getQuestion', {
         id: this.id
@@ -74,7 +74,7 @@ export default {
   watch: {
     question: {
       deep: true,
-      handler() {
+      handler () {
         this.formQuestion = {
           caption: this.question.caption,
           description: this.question.description

@@ -13,8 +13,8 @@
 <script>
 export default {
   props: ['creator', 'isAnswer', 'createdAt'],
-  computed:{
-    avatarUrl(){
+  computed: {
+    avatarUrl () {
       return `https://ui-avatars.com/api/?name=${this.creator.name}&background=2d8cf0&color=fff&size=35`
     }
   }

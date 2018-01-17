@@ -12,7 +12,7 @@ import {mapActions, mapGetters} from 'vuex'
 
 export default {
   components: {QuestionList},
-  mounted(){
+  mounted () {
     this.getQuestions()
   },
   methods: {

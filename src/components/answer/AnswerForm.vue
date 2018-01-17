@@ -16,7 +16,7 @@ export default {
     editor
   },
   props: ['question'],
-  data() {
+  data () {
     return {
       formAnswer: {
         caption: ''
@@ -34,10 +34,10 @@ export default {
     }
   },
   methods: {
-    processEditOperation(operation) {
+    processEditOperation (operation) {
       this.formAnswer.caption = operation.api.origElements.innerHTML
     },
-    handleSubmit(name) {
+    handleSubmit (name) {
       console.log('keisni')
       this.$store.dispatch('createAnswer', {
         questionId: this.question._id,

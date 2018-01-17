@@ -9,7 +9,7 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       formInline: {
         caption: '',
@@ -18,7 +18,7 @@ export default {
     }
   },
   methods: {
-    submitQuestion() {
+    submitQuestion () {
       this.$store.dispatch('createQuestion', {
         caption: this.formInline.caption,
         description: this.formInline.description
@@ -28,10 +28,10 @@ export default {
   },
   computed: {
     modalVisible: {
-      get() {
+      get () {
         return this.$store.getters.modalVisible
       },
-      set() {
+      set () {
         this.$store.commit('hideModal')
       }
     }

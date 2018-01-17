@@ -16,8 +16,8 @@
 <script>
 export default {
   props: ['question'],
-  computed:{
-    avatarUrl(){
+  computed: {
+    avatarUrl () {
       return `https://ui-avatars.com/api/?name=${this.question.creator.name}&background=2d8cf0&color=fff&size=35`
     }
   }

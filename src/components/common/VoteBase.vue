@@ -14,12 +14,12 @@
 export default {
   props: ['context'],
   computed: {
-    voteCount(){
+    voteCount () {
       return this.context.upvoters.length - this.context.downvoters.length
     }
   },
   methods: {
-    vote(direction){
+    vote (direction) {
       this.$emit('voteClicked', {
         direction,
         id: this.context._id

@@ -14,7 +14,7 @@ const getters = {
 }
 
 const actions = {
-  getQuestions({ commit }) {
+  getQuestions ({ commit }) {
     axios
       .get('/questions')
       .then(({ data }) => {
@@ -26,7 +26,7 @@ const actions = {
         console.log(err.response.data.message)
       })
   },
-  getQuestion({ commit }, { id }) {
+  getQuestion ({ commit }, { id }) {
     axios
       .get('/questions/' + id)
       .then(({ data }) => {
@@ -38,7 +38,7 @@ const actions = {
         console.log(err.response.data.message)
       })
   },
-  createQuestion({ commit }, { caption, description }) {
+  createQuestion ({ commit }, { caption, description }) {
     axios
       .post(`/questions`, {
         caption,
@@ -53,7 +53,7 @@ const actions = {
         console.log(err.response.data.message)
       })
   },
-  updateQuestion({ commit }, { questionId, caption, description }) {
+  updateQuestion ({ commit }, { questionId, caption, description }) {
     axios
       .put(`/questions/${questionId}`, {
         caption,
@@ -69,7 +69,7 @@ const actions = {
         console.log(err.response.data.message)
       })
   },
-  deleteQuestion({ commit }, { questionId }) {
+  deleteQuestion ({ commit }, { questionId }) {
     axios
       .delete(`/questions/${questionId}`)
       .then(question => {
@@ -82,7 +82,7 @@ const actions = {
         console.log(err.response.data.message)
       })
   },
-  toggleVoteQuestion({ commit }, { questionId, direction }) {
+  toggleVoteQuestion ({ commit }, { questionId, direction }) {
     axios
       .put(`/questions/${questionId}/togglevote`, {
         direction
@@ -97,7 +97,7 @@ const actions = {
         console.log(err.response.data.message)
       })
   },
-  toggleVoteAnswer({ commit }, { questionId, answerId, direction }) {
+  toggleVoteAnswer ({ commit }, { questionId, answerId, direction }) {
     axios
       .put(`questions/${questionId}/answers/${answerId}/togglevote`, {
         direction
@@ -112,7 +112,7 @@ const actions = {
         console.log(err.response.data.message)
       })
   },
-  createAnswer({ commit }, { questionId, caption }) {
+  createAnswer ({ commit }, { questionId, caption }) {
     axios
       .post(`/questions/${questionId}/answers`, {
         caption
@@ -127,7 +127,7 @@ const actions = {
         console.log(err.response.data.message)
       })
   },
-  deleteAnswer({ commit }, { questionId, answerId }) {
+  deleteAnswer ({ commit }, { questionId, answerId }) {
     axios
       .delete(`/questions/${questionId}/answers/${answerId}`)
       .then(({data}) => {
@@ -141,16 +141,16 @@ const actions = {
 }
 
 const mutations = {
-  [types.QUESTION_GET_ALL_SUCCESS](state, { questions }) {
+  [types.QUESTION_GET_ALL_SUCCESS] (state, { questions }) {
     state.questions = questions
   },
-  [types.QUESTION_GET_ONE_SUCCESS](state, { question }) {
+  [types.QUESTION_GET_ONE_SUCCESS] (state, { question }) {
     state.question = question
   },
-  [types.QUESTION_CREATE_SUCCESS](state, { question }) {
+  [types.QUESTION_CREATE_SUCCESS] (state, { question }) {
     state.questions = [question, ...state.questions]
   },
-  [types.QUESTION_UPDATE_SUCCESS](state, { question, questionId }) {
+  [types.QUESTION_UPDATE_SUCCESS] (state, { question, questionId }) {
     state.questions = state.questions.map(currentQuestion => {
       if (question._id == currentQuestion._id) {
         return {
@@ -167,24 +167,23 @@ const mutations = {
       description: question.description
     }
   },
-  [types.QUESTION_DELETE_SUCCESS](state, { questionId }) {
+  [types.QUESTION_DELETE_SUCCESS] (state, { questionId }) {
     state.question = null
     state.questions = state.questions.filter(question => {
       return questionId !== question._id
     })
   },
-  [types.QUESTION_TOGGLEVOTE_SUCCESS](state, { upvoters, downvoters }) {
+  [types.QUESTION_TOGGLEVOTE_SUCCESS] (state, { upvoters, downvoters }) {
     state.question = {
       ...state.question,
       upvoters,
       downvoters
     }
   },
-  [types.QUESTION_ANSWER_CREATE_SUCCESS](state, { answer, questionId }) {
+  [types.QUESTION_ANSWER_CREATE_SUCCESS] (state, { answer, questionId }) {
     state.question.answers = [...state.question.answers, answer]
   },
-  [types.QUESTION_ANSWER_DELETE_SUCCESS](state, { answer, questionId }) {
-
+  [types.QUESTION_ANSWER_DELETE_SUCCESS] (state, { answer, questionId }) {
     state.question.answers = state.question.answers.filter(currentAnswer => {
       return currentAnswer._id !== answer._id
     })
@@ -200,7 +199,7 @@ const mutations = {
       return question
     })
   },
-  [types.QUESTION_ANSWER_TOGGLEVOTE_SUCCESS](state, { answer, questionId }) {
+  [types.QUESTION_ANSWER_TOGGLEVOTE_SUCCESS] (state, { answer, questionId }) {
     state.question.answers = state.question.answers.map(currentAnswer => {
       if (currentAnswer._id == answer._id) {
         return {
@@ -212,10 +211,10 @@ const mutations = {
       return currentAnswer
     })
   },
-  showModal(state) {
+  showModal (state) {
     state.modalVisible = true
   },
-  hideModal(state) {
+  hideModal (state) {
     state.modalVisible = false
   }
 }

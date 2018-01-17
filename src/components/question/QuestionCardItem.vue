@@ -35,14 +35,14 @@ export default {
   props: ['question'],
   components: { QuestionVote, QuestionStats, QuestionUserInfo },
   methods: {
-    handleDeleteQuestion(){
+    handleDeleteQuestion () {
       this.$store.dispatch('deleteQuestion', {
         questionId: this.question._id
       })
     }
   },
   computed: {
-    to() {
+    to () {
       return {
         name: 'questionPage',
         params: {
@@ -50,7 +50,7 @@ export default {
         }
       }
     },
-    toEdit() {
+    toEdit () {
       return {
         name: 'questionEdit',
         params: {

@@ -10,7 +10,7 @@ import QuestionForm from '@/components/question/QuestionForm'
 Vue.use(Router)
 
 export default new Router({
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {

@@ -67,26 +67,26 @@ import { mapGetters, mapActions } from 'vuex'
 export default {
   props: ['id'],
   components: { VoteBase, QuestionStats, UserInfo, AnswerList, AnswerForm },
-  mounted() {
+  mounted () {
     this.getQuestion({ id: this.id })
   },
   methods: {
     ...mapActions(['getQuestion']),
-    answerVoteClicked({direction, id}) {
-      this.$store.dispatch('toggleVoteAnswer',{
+    answerVoteClicked ({direction, id}) {
+      this.$store.dispatch('toggleVoteAnswer', {
         questionId: this.id,
         answerId: id,
         direction
       })
     },
-    answerDeleteClicked(id){
-      this.$store.dispatch('deleteAnswer',{
+    answerDeleteClicked (id) {
+      this.$store.dispatch('deleteAnswer', {
         questionId: this.id,
-        answerId: id,
+        answerId: id
       })
     },
-    questionVoteClicked({direction}) {
-      this.$store.dispatch('toggleVoteQuestion',{
+    questionVoteClicked ({direction}) {
+      this.$store.dispatch('toggleVoteQuestion', {
         questionId: this.id,
         direction
       })
@@ -94,7 +94,7 @@ export default {
   },
   computed: {
     ...mapGetters(['question']),
-    toEditPage(){
+    toEditPage () {
       return {
         name: 'questionEdit',
         params: {

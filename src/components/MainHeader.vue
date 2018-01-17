@@ -17,12 +17,12 @@ import QuestionNewButton from '@/components/question/QuestionNewButton'
 export default {
   name: 'MainHeader',
   components: {QuestionNewButton},
-  methods:{
-    handleSignout() {
+  methods: {
+    handleSignout () {
       this.$store.dispatch('signout')
-      .then(() => {
-        this.$router.push({name:'homePage'})
-      })
+        .then(() => {
+          this.$router.push({name: 'homePage'})
+        })
     }
   },
   computed: {

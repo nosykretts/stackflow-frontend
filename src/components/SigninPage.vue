@@ -24,7 +24,7 @@
 <script>
 
 export default {
-  data() {
+  data () {
     return {
       formInline: {
         email: '',
@@ -55,14 +55,14 @@ export default {
     }
   },
   methods: {
-    handleSubmit(name) {
+    handleSubmit (name) {
       this.$refs[name].validate(valid => {
         if (valid) {
           console.log('kesini', this.$store)
           this.$store.dispatch('signin', {
             email: this.formInline.email,
-            password: this.formInline.password,
-          }).then(()=> {
+            password: this.formInline.password
+          }).then(() => {
             this.$router.push({name: 'homePage'})
           })
         } else {

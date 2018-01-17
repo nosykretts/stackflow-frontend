@@ -4,44 +4,44 @@ const state = {
   notify: {
     message: '',
     type: '',
-    rand: '',
-  },
+    rand: ''
+  }
 }
 
 const getters = {
-  notify: state => state.notify,
+  notify: state => state.notify
 }
 
 const mutations = {
-  [types.NOTIFY_INFO](state, message) {
+  [types.NOTIFY_INFO] (state, message) {
     state.notify = {
       message,
-      type: 'info',
+      type: 'info'
     }
   },
-  [types.NOTIFY_SUCCESS](state, message) {
+  [types.NOTIFY_SUCCESS] (state, message) {
     state.notify = {
       message,
-      type: 'success',
+      type: 'success'
     }
   },
-  [types.NOTIFY_WARNING](state, message) {
+  [types.NOTIFY_WARNING] (state, message) {
     state.notify = {
       message,
-      type: 'warning',
+      type: 'warning'
     }
   },
-  [types.NOTIFY_ERROR](state, message) {
+  [types.NOTIFY_ERROR] (state, message) {
     state.notify = {
       message,
-      type: 'error',
+      type: 'error'
     }
-  },
+  }
 }
 
 export default {
 
   state,
   getters,
-  mutations,
+  mutations
 }

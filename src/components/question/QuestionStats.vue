@@ -15,7 +15,7 @@
 export default {
   props: ['question'],
   computed: {
-    voteCount() {
+    voteCount () {
       return this.question.upvoters.length - this.question.downvoters.length
     }
   }

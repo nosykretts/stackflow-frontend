@@ -18,7 +18,7 @@ export default {
   components: {
     editor
   },
-  data() {
+  data () {
     return {
       contextForm: {
         caption: '',
@@ -27,7 +27,7 @@ export default {
     }
   },
   methods: {
-    handleSubmit(name) {
+    handleSubmit (name) {
       this.$refs[name].validate(valid => {
         if (valid) {
           this.$Message.success('Success!')

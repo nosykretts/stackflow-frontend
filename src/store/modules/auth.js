@@ -10,7 +10,7 @@ const getters = {
 }
 
 const actions = {
-  signin({ commit }, { email, password }) {
+  signin ({ commit }, { email, password }) {
     axios
       .post('/auth/signin', {
         email,
@@ -26,7 +26,7 @@ const actions = {
         commit(types.NOTIFY_ERROR, err.response.data.message, { root: true })
       })
   },
-  signup({ commit }, { name, email, username, password }) {
+  signup ({ commit }, { name, email, username, password }) {
     axios
       .post('/auth/signup', {
         name,
@@ -44,20 +44,20 @@ const actions = {
         commit(types.NOTIFY_ERROR, err.response.data.message, { root: true })
       })
   },
-  signout({ commit }) {
+  signout ({ commit }) {
     commit(types.AUTH_SIGNOUT)
     commit(types.NOTIFY_SUCCESS, 'Signup success. Please login', { root: true })
   }
 }
 
 const mutations = {
-  [types.AUTH_SIGNIN_SUCCESS](state, { token }) {
+  [types.AUTH_SIGNIN_SUCCESS] (state, { token }) {
     localStorage.setItem('token', `Bearer ${token}`)
     axios.defaults.headers.common.Authorization = `Bearer ${token}`
     state.isLoggedIn = true
   },
-  [types.AUTH_SIGNUP_SUCCESS]() {},
-  [types.AUTH_SIGNOUT](state) {
+  [types.AUTH_SIGNUP_SUCCESS] () {},
+  [types.AUTH_SIGNOUT] (state) {
     localStorage.removeItem('token')
     console.log(localStorage.getItem('token'))
     axios.defaults.headers.common.Authorization = 'Bearer jwt'
