@@ -3,12 +3,14 @@ import * as types from '../mutationTypes'
 
 const state = {
   questions: [],
-  question: null
+  question: null,
+  modalVisible : false
 }
 
 const getters = {
   questions: state => state.questions,
-  question: state => state.question
+  question: state => state.question,
+  modalVisible: state => state.modalVisible
 }
 
 const actions = {
@@ -48,8 +50,8 @@ const actions = {
       console.log(err.response.data.message)
     })    
   },
-  updateQuestion({ commit }, { postId, caption, description }) {
-    axios.put(`/questions/${postId}`, {
+  updateQuestion({ commit }, { questionId, caption, description }) {
+    axios.put(`/questions/${questionId}`, {
       caption,
       description
     })
@@ -62,8 +64,8 @@ const actions = {
       console.log(err.response.data.message)
     })    
   },
-  deleteQuestion({ commit }, { postId }) {
-    axios.delete(`/questions/${postId}`)
+  deleteQuestion({ commit }, { questionId }) {
+    axios.delete(`/questions/${questionId}`)
     .then(question => {
       commit(types.QUESTION_DELETE_SUCCESS, {
         question
@@ -73,46 +75,54 @@ const actions = {
       console.log(err.response.data.message)
     })
   },
-  toggleVoteQuestion({commit}, {postId, direction}){
-    axios.put(`/questions/${postId}/togglevote`,{})
-    .then(question => {
+  toggleVoteQuestion({commit}, {questionId, direction}){
+    axios.put(`/questions/${questionId}/togglevote`,{
+      direction
+    })
+    .then(({data}) => {
       commit(types.QUESTION_TOGGLEVOTE_SUCCESS,{
-        question
+        upvoters: data.data.upvoters,
+        downvoters: data.data.downvoters
       })
     })
     .catch(err => {
       console.log(err.response.data.message)
     })
   },
-  toggleVoteAnswer({commit}, {postId, answerId, direction}){
-    axios.put(`questions/${postId}/answers/${answerId}/togglevote`,{})
-    .then(answer => {
+  toggleVoteAnswer({commit}, {questionId, answerId, direction}){
+    axios.put(`questions/${questionId}/answers/${answerId}/togglevote`,{
+      direction
+    })
+    .then(({data}) => {
       commit(types.QUESTION_ANSWER_TOGGLEVOTE_SUCCESS, {
-        answer,
-        postId
+        answer: data.data,
+        questionId
       })
     })
     .catch(err => {
       console.log(err.response.data.message)
     })
   },
-  createAnswer({ commit }, { postId, caption }) {
-    axios.post(`/questions/${postId}/answers`,{
+  createAnswer({ commit }, { questionId, caption }) {
+    axios.post(`/questions/${questionId}/answers`,{
       caption
     })
-    .then(answer => {
+    .then(({data}) => {
       commit(types.QUESTION_ANSWER_CREATE_SUCCESS,{
-        answer,
-        postId
+        answer: data.data,
+        questionId
       })
     })
+    .catch(err => {
+      console.log(err.response.data.message)
+    })
   },
-  deleteAnswer({ commit }, { postId, answerId }) {
-    axios.delete(`/questions/${postId}/answers/${answerId}`)
+  deleteAnswer({ commit }, { questionId, answerId }) {
+    axios.delete(`/questions/${questionId}/answers/${answerId}`)
     .then(answer => {
       commit(types.QUESTION_ANSWER_DELETE_SUCCESS, {
         answer, 
-        postId
+        questionId
       })
     })
   }
@@ -127,20 +137,49 @@ const mutations = {
   },
   [types.QUESTION_CREATE_SUCCESS](state, {question}) {
     state.questions = [
-      question,      
+      question,
       ...state.questions,
     ]
   },
   [types.QUESTION_UPDATE_SUCCESS](state, {caption, questionId}) {},
-  [types.QUESTION_DELETE_SUCCESS](state, {questionId}) {},
-  [types.QUESTION_TOGGLEVOTE_SUCCESS](state, questionId, direction) {},
-  [types.QUESTION_ANSWER_CREATE_SUCCESS](state) {},
+  [types.QUESTION_DELETE_SUCCESS](state, {questionId}) {
+    
+  },
+  [types.QUESTION_TOGGLEVOTE_SUCCESS](state, {upvoters, downvoters}) {
+    state.question = {
+      ...state.question,
+      upvoters,
+      downvoters
+    }
+  },
+  [types.QUESTION_ANSWER_CREATE_SUCCESS](state, {answer, questionId}) {
+    state.question.answers = [
+      ...state.question.answers,
+      answer
+    ]
+  },
   [types.QUESTION_ANSWER_DELETE_SUCCESS](state) {},
-  [types.QUESTION_ANSWER_TOGGLEVOTE_SUCCESS](state) {}
+  [types.QUESTION_ANSWER_TOGGLEVOTE_SUCCESS](state, {answer, questionId}) {
+    state.question.answers = state.question.answers.map(currentAnswer => {
+      if(currentAnswer._id == answer._id){
+        return {
+          ...currentAnswer,
+          upvoters: answer.upvoters,
+          downvoters: answer.downvoters,
+        }
+      }
+      return currentAnswer
+    })
+  },
+  showModal(state) {
+    state.modalVisible = true
+  },
+  hideModal(state) {
+    state.modalVisible = false
+  },
 }
 
 export default {
-
   state,
   getters,
   mutations,

@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 Vue.prototype.moment = moment;
 Vue.use(iView)
 axios.defaults.baseURL = 'http://x.fajarpatappari.tk:3000/api'
-axios.defaults.headers.common.Authorization = localStorage.getItem('token')
+axios.defaults.headers.common.Authorization = localStorage.getItem('token') || 'Bearer jwt'
 
 /* eslint-disable no-new */
 new Vue({

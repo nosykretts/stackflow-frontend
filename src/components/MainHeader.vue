@@ -5,15 +5,19 @@
       </div>
       <Button type="primary" @click="$router.push({name:'signinPage'})">Sign In</Button>
       <Button type="primary" @click="$router.push({name:'signupPage'})">Sign Up</Button>
+      <Button type="primary" @click="$router.push({name:'questionCreate'})">New Question</Button>
+      
       <Button type="primary" @click="handleSignout">Sign Out</Button>
+       <QuestionNewButton/>
     </Menu>
   </Header>
 </template>
 
 <script>
-
+import QuestionNewButton from '@/components/question/QuestionNewButton'
 export default {
   name: 'MainHeader',
+  components: {QuestionNewButton},
   methods:{
     handleSignout() {
       this.$store.dispatch('signout')

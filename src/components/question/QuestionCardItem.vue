@@ -1,18 +1,19 @@
 <template>
 
-<Row :gutter="20" class="card-row">
+  <Row :gutter="20" class="card-row">
     <Col :span="2">
-      <!-- <QuestionVote :question="question"/> -->
-      <QuestionStats :question="question"/>
-    </Col> 
-    <Col :span="22">
-      <router-link :to="to">
-        <h2>{{question.caption}}</h2>
-      </router-link>
-      <p>{{question.description}}</p>
-      <QuestionUserInfo :question="question"/>
+    <!-- <QuestionVote :question="question"/> -->
+    <QuestionStats :question="question" />
     </Col>
-</Row> 
+    <Col :span="22">
+    <router-link :to="to">
+      <h2>{{question.caption}}</h2>
+    </router-link>
+    <p>{{question.description}}</p>
+    <QuestionUserInfo :question="question" />
+    <router-link :to="toEdit">Edit</router-link>
+    </Col>
+  </Row>
 </template>
 
 <script>
@@ -22,28 +23,35 @@ import QuestionUserInfo from './QuestionUserInfo'
 
 export default {
   props: ['question'],
-  components: {QuestionVote, QuestionStats, QuestionUserInfo},
-  computed:{
-    to(){
+  components: { QuestionVote, QuestionStats, QuestionUserInfo },
+  computed: {
+    to() {
       return {
         name: 'questionPage',
         params: {
           id: this.question._id
         }
       }
+    },
+    toEdit() {
+      return {
+        name: 'questionEdit',
+        params: {
+          id: this.question._id
+        }
+      }
     }
   }
-
 }
 </script>
 
 <style>
-.card-row{
+.card-row {
   padding-bottom: 20px;
   border-bottom: 1px solid #c7c7c7;
   margin-top: 20px;
 }
-.card-row:last-child{
+.card-row:last-child {
   border-bottom: none;
 }
 </style>

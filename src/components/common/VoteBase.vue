@@ -1,11 +1,11 @@
 <template>
     <div class="vote-wrapper">
       <div>
-        <Button type="ghost" icon="arrow-up-a"></Button>
+        <Button type="ghost" icon="arrow-up-b" @click="vote('up')"></Button>
       </div>
       <div class="vote-count">{{voteCount}}</div>
       <div>
-        <Button type="ghost" icon="arrow-down-a"></Button>
+        <Button type="ghost" icon="arrow-down-b" @click="vote('down')"></Button>
       </div>
     </div>
 </template>
@@ -16,6 +16,14 @@ export default {
   computed: {
     voteCount(){
       return this.context.upvoters.length - this.context.downvoters.length
+    }
+  },
+  methods: {
+    vote(direction){
+      this.$emit('voteClicked', {
+        direction,
+        id: this.context._id
+      })
     }
   }
 }
@@ -34,7 +42,7 @@ export default {
   margin: 0;
   padding: 0;
   border: none;
-  font-size: 150%;
+  font-size: 250%;
   line-height: 1;
 }
 </style>
