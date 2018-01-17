@@ -7,7 +7,12 @@
             <Input size="large" type="text" v-model="formInline.name" placeholder="Your name">
                 <Icon type="ios-person-outline" slot="prepend"></Icon>
             </Input>
-        </FormItem>        
+        </FormItem>
+        <FormItem prop="username">
+            <Input size="large" type="text" v-model="formInline.username" placeholder="Username">
+                <Icon type="ios-person-outline" slot="prepend"></Icon>
+            </Input>
+        </FormItem>            
         <FormItem prop="email">
             <Input size="large" type="email" v-model="formInline.email" placeholder="Email">
                 <Icon type="ios-email-outline" slot="prepend"></Icon>
@@ -32,13 +37,21 @@ export default {
       formInline: {
         name: '',
         email: '',
-        password: ''
+        password: '',
+        username: ''
       },
       ruleInline: {
         name: [
           {
             required: true,
             message: 'Please fill in your name',
+            trigger: 'blur'
+          }
+        ],
+        username: [
+          {
+            required: true,
+            message: 'Please fill in username',
             trigger: 'blur'
           }
         ],
@@ -69,7 +82,16 @@ export default {
     handleSubmit(name) {
       this.$refs[name].validate(valid => {
         if (valid) {
-          
+          this.$store
+            .dispatch('signup', {
+              name: this.formInline.name,
+              username: this.formInline.username,
+              email: this.formInline.email,
+              password: this.formInline.password
+            })
+            .then(() => {
+              this.$router.push({ name: 'signinPage' })
+            })
         } else {
           this.$Message.error('Please correct your input!')
         }

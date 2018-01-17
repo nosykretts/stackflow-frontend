@@ -11,9 +11,7 @@ const getters = {
 
 const actions = {
   signin({ commit }, { email, password }) {
-    console.log('auth/signsdsdad')
-    return new Promise((resolve, reject) => {
-      axios
+    axios
         .post('/auth/signin', {
           email,
           password,
@@ -23,13 +21,11 @@ const actions = {
             token: data.data.token,
           })
           commit(types.NOTIFY_SUCCESS, 'Sign in success', { root: true })
-          resolve()
+         
         })
         .catch((err) => {
           commit(types.NOTIFY_ERROR, err.response.data.message, { root: true })
-          reject(err)
         })
-    })
   },
   signup({ commit }, { name, email, username, password }) {
     axios
@@ -47,6 +43,10 @@ const actions = {
         commit(types.NOTIFY_ERROR, err.response.data.message, { root: true })
       })
   },
+  signout({commit}){
+    commit(types.AUTH_SIGNOUT)
+    commit(types.NOTIFY_SUCCESS, 'Signup success. Please login', { root: true })
+  }
 }
 
 const mutations = {

@@ -4,6 +4,7 @@ import MainLayout from '@/components/MainLayout'
 import HomePage from '@/components/HomePage'
 import SigninPage from '@/components/SigninPage'
 import SignUpPage from '@/components/SignUpPage'
+import QuestionDetailPage from '@/components/question/QuestionDetailPage'
 
 Vue.use(Router)
 
@@ -20,14 +21,20 @@ export default new Router({
           component: HomePage,
         },
         {
-          path: '/auth/signin',
+          path: 'auth/signin',
           name: 'signinPage',
           component: SigninPage
         },
         {
-          path: '/auth/signup',
+          path: 'auth/signup',
           name: 'signupPage',
           component: SignUpPage
+        },
+        {
+          path: 'question/:id',
+          name: 'questionPage',
+          component: QuestionDetailPage,
+          props: true
         }
       ]
     },

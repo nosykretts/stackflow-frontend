@@ -59,9 +59,11 @@ export default {
       this.$refs[name].validate(valid => {
         if (valid) {
           console.log('kesini', this.$store)
-          this.$store.dispatch('auth/signin', {
+          this.$store.dispatch('signin', {
             email: this.formInline.email,
             password: this.formInline.password,
+          }).then(()=> {
+            this.$router.push({name: 'homePage'})
           })
         } else {
           this.$Message.error('Please correct your input!')

@@ -5,7 +5,7 @@
       </div>
       <Button type="primary" @click="$router.push({name:'signinPage'})">Sign In</Button>
       <Button type="primary" @click="$router.push({name:'signupPage'})">Sign Up</Button>
-      <Button type="primary">Sign Out</Button>
+      <Button type="primary" @click="handleSignout">Sign Out</Button>
     </Menu>
   </Header>
 </template>
@@ -13,7 +13,15 @@
 <script>
 
 export default {
-  name: 'MainHeader'
+  name: 'MainHeader',
+  methods:{
+    handleSignout() {
+      this.$store.dispatch('signout')
+      .then(() => {
+        this.$router.push({name:'homePage'})
+      })
+    }
+  }
 }
 </script>
 

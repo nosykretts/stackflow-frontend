@@ -23,4 +23,14 @@ body {
   margin: auto;
   max-width: 300px;
 }
+.clearfixx::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.hr-tipis{
+  border: none;
+  border-top: 1px solid #e9eaec;
+  margin: 20px 0;
+}
 </style>
