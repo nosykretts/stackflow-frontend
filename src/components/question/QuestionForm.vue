@@ -3,10 +3,10 @@
     <Card shadow style="padding:20px;">
       <h1>{{id? 'Edit':'Create'}} Question</h1>
       <Form label-position="top" ref="formQuestion" :model="formQuestion">
-        <FormItem style="margin-top: 20px;" prop="caption">
-          <Input v-model="formQuestion.caption" placeholder="Question Title"></Input>
+        <FormItem style="margin-top: 20px;" prop="caption" >
+          <Input v-model="formQuestion.caption" placeholder="Question Title" size="large"></Input>
         </FormItem>
-        <FormItem style="margin-top: 20px;" prop="caption">
+        <FormItem style="margin-top: 20px;" prop="description">
           <editor v-on:edit='processEditOperation' class="editor-content" :text='formQuestion.description' placeholder="Give Question to this question"></editor>
         </FormItem>
         <FormItem>

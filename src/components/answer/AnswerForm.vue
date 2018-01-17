@@ -19,7 +19,6 @@ export default {
   data() {
     return {
       formAnswer: {
-        
         caption: ''
       },
       ruleInline: {
@@ -35,22 +34,16 @@ export default {
     }
   },
   methods: {
-    processEditOperation(operation){
+    processEditOperation(operation) {
       this.formAnswer.caption = operation.api.origElements.innerHTML
     },
     handleSubmit(name) {
       console.log('keisni')
       this.$store.dispatch('createAnswer', {
-            questionId: this.question._id,
-            caption: this.formAnswer.caption
-          })
-      // this.$refs[name].validate(valid => {
-      //   if (valid) {
-          
-      //   } else {
-      //     this.$Message.error('Please correct you answer input')
-      //   }
-      // })
+        questionId: this.question._id,
+        caption: this.formAnswer.caption
+      })
+      this.formAnswer.caption = ''
     }
   }
 }

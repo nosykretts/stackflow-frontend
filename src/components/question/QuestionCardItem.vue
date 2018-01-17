@@ -7,11 +7,21 @@
     </Col>
     <Col :span="22">
     <router-link :to="to">
-      <h2>{{question.caption}}</h2>
+      <h2 style="line-height:1;">{{question.caption}}</h2>
     </router-link>
-    <p>{{question.description}}</p>
+    <br>
+    <p><span v-html="question.description"></span></p>
     <QuestionUserInfo :question="question" />
-    <router-link :to="toEdit">Edit</router-link>
+    <router-link  v-if="question.canUpdate"  class="ivu-btn ivu-btn" :to="toEdit" >Edit</router-link>
+    <Poptip
+        v-if="question.canDelete"
+        confirm
+        title="Are you sure delete this question?"
+        @on-ok="handleDeleteQuestion"
+        ok-text="yes"
+        cancel-text="no">
+        <Button>Delete</Button>
+    </Poptip>
     </Col>
   </Row>
 </template>
@@ -24,6 +34,13 @@ import QuestionUserInfo from './QuestionUserInfo'
 export default {
   props: ['question'],
   components: { QuestionVote, QuestionStats, QuestionUserInfo },
+  methods: {
+    handleDeleteQuestion(){
+      this.$store.dispatch('deleteQuestion', {
+        questionId: this.question._id
+      })
+    }
+  },
   computed: {
     to() {
       return {

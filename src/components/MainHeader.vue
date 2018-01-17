@@ -3,17 +3,16 @@
     <Menu mode="horizontal" theme="dark" active-name="1">
       <div class="layout-logo" @click="$router.push({name:'homePage'})">stack<span>flow</span>
       </div>
-      <Button type="primary" @click="$router.push({name:'signinPage'})">Sign In</Button>
-      <Button type="primary" @click="$router.push({name:'signupPage'})">Sign Up</Button>
-      <Button type="primary" @click="$router.push({name:'questionCreate'})">New Question</Button>
-      
-      <Button type="primary" @click="handleSignout">Sign Out</Button>
-       <QuestionNewButton/>
+      <Button v-if="!isLoggedIn" type="primary" @click="$router.push({name:'signinPage'})">Sign In</Button>
+      <Button v-if="!isLoggedIn" type="primary" @click="$router.push({name:'signupPage'})">Sign Up</Button>
+      <Button v-if="isLoggedIn" type="primary" @click="handleSignout">Sign Out</Button>
+      <Button @click="$router.push({name:'questionCreate'})">New Question</Button>
     </Menu>
   </Header>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import QuestionNewButton from '@/components/question/QuestionNewButton'
 export default {
   name: 'MainHeader',
@@ -25,6 +24,9 @@ export default {
         this.$router.push({name:'homePage'})
       })
     }
+  },
+  computed: {
+    ...mapGetters(['isLoggedIn'])
   }
 }
 </script>

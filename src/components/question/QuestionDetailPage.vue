@@ -1,11 +1,11 @@
 <template>
-  <Content v-if="question" :style="{padding: '50px 50px'}">
+  <Content :style="{padding: '50px 50px'}">
     <Card shadow>
-      <div slot="title">
+      <div slot="title"  v-if="question">
         <h1 style="padding: 20px;">{{question.caption}}</h1>
       </div>
       <!-- <pre>{{JSON.stringify(question,null, 2)}}</pre> -->
-      <div style="padding:20px;">
+      <div style="padding:20px;"  v-if="question">
         <Row :gutter="20">
           <Col :span="18">
           <Row :gutter="0">
@@ -13,7 +13,7 @@
             <VoteBase :context="question" @voteClicked="questionVoteClicked" />
             </Col>
             <Col :span="22">
-            <p>{{question.description}}</p>
+            <p><span v-html="question.description"></span></p>
             <UserInfo :creator="question.creator" :createdAt="question.createdAt" />
             </Col>
           </Row>
@@ -32,6 +32,7 @@
             <!-- <p>{{answer.caption}}</p> -->
               <span v-html="answer.caption"></span>
               <UserInfo :creator="answer.creator" :isAnswer="true" :createdAt="answer.createdAt" />
+              <Button v-if="answer.canDelete" size="small" @click="answerDeleteClicked(answer._id)">Delete</Button>
               <hr class="hr-tipis">
             </Col>
           </Row>
@@ -45,7 +46,7 @@
           </Row>
           </Col>
           <Col :span="6">
-            <Button type="warning" long size="large">Edit Question</Button>
+            <Button v-if="question.canUpdate" @click="$router.push(toEditPage)" type="warning" long size="large">Edit Question</Button>
           <!-- <QuestionVote :question="question"/> -->
           <!-- <QuestionStats :question="question"/> -->
           </Col>
@@ -71,14 +72,17 @@ export default {
   },
   methods: {
     ...mapActions(['getQuestion']),
-    handleQuestionVote(direction) {
-      this.$store.dispatch('')
-    },
     answerVoteClicked({direction, id}) {
       this.$store.dispatch('toggleVoteAnswer',{
         questionId: this.id,
         answerId: id,
         direction
+      })
+    },
+    answerDeleteClicked(id){
+      this.$store.dispatch('deleteAnswer',{
+        questionId: this.id,
+        answerId: id,
       })
     },
     questionVoteClicked({direction}) {
@@ -89,7 +93,15 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['question'])
+    ...mapGetters(['question']),
+    toEditPage(){
+      return {
+        name: 'questionEdit',
+        params: {
+          id: this.question._id
+        }
+      }
+    }
   }
 }
 </script>
