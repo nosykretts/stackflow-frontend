@@ -15,7 +15,7 @@
                 <Icon type="ios-locked-outline" slot="prepend"></Icon>
             </Input>
         </FormItem>
-        <Button type="primary" @click="handleSubmit('formInline')" long size="large">Signin</Button>
+        <Button type="primary" @click="handleSubmit('formInline')" long size="large">Sign In</Button>
       </Form>       
     </Card>
   </Content>

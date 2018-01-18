@@ -6,7 +6,7 @@
       <Button v-if="!isLoggedIn" type="primary" @click="$router.push({name:'signinPage'})">Sign In</Button>
       <Button v-if="!isLoggedIn" type="primary" @click="$router.push({name:'signupPage'})">Sign Up</Button>
       <Button v-if="isLoggedIn" type="primary" @click="handleSignout">Sign Out</Button>
-      <Button @click="$router.push({name:'questionCreate'})">New Question</Button>
+      <Button v-if="isLoggedIn" @click="$router.push({name:'questionCreate'})">New Question</Button>
     </Menu>
   </Header>
 </template>

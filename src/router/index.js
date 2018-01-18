@@ -9,7 +9,7 @@ import QuestionForm from '@/components/question/QuestionForm'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
@@ -42,12 +42,14 @@ export default new Router({
           path: 'question/create',
           name: 'questionCreate',
           component: QuestionForm,
+          meta: { requireAuth: true },
           props: true
         },
         {
           path: 'question/edit/:id',
           name: 'questionEdit',
           component: QuestionForm,
+          meta: { requireAuth: true },
           props: true
         },
         {
@@ -60,3 +62,21 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(route => route.meta.requireAuth)) {
+    if (localStorage.getItem('token')) {
+      next()
+    } else {
+      next({ name: 'signinPage' })
+    }
+  } else if (to.name === 'signinPage' && localStorage.getItem('token')) {
+    next(false)
+  } else {
+    next()
+  }
+})
+
+
+
+export default router

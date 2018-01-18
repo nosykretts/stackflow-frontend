@@ -24,7 +24,7 @@
             </Input>
         </FormItem>     
         
-        <Button type="primary" @click="handleSubmit('formInline')" long size="large">Signin</Button>
+        <Button type="primary" @click="handleSubmit('formInline')" long size="large">Sign Up</Button>
       </Form>       
     </Card>
   </Content>
